@@ -68,11 +68,11 @@ header h1 {
 
 /* Recipes Page */
 
-.recipe-container {
+.recipes-container {
   display: flex;
 }
 
-.recipe-card {
+.recipes-card {
   width: 300px;
   height: 250px;
   padding: 20px;
@@ -83,18 +83,91 @@ header h1 {
   box-shadow: 4px 14px 31px 1px rgba(0, 0, 0, 0.75);
 }
 
-.recipe-card-content h2 {
+.recipes-card-content h2 {
   text-align: center;
 }
 
-.recipe-card-img-container {
+.recipes-card-img-container {
   margin: 0 auto;
 }
 
-.recipe-card-img-container img {
+.recipes-card-img-container img {
   margin: 0 auto;
   height: 100px;
   width: auto;
   margin: 10px auto;
   flex: 1;
+}
+
+/* Recipe page */
+
+.recipe-title {
+  font-family: "Pacifico";
+  font-size: 4rem;
+  text-align: center;
+}
+
+.recipe-subtitle {
+  text-align: center;
+}
+
+.recipe-container {
+  display: flex;
+}
+
+.panel {
+  width: 50%;
+}
+
+.panel>* {
+  margin: 5px;
+  padding: 10px;
+}
+
+.left-panel {}
+
+.right-panel {}
+
+.recipe-info,
+.ingredients ul li {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+}
+
+.instructions {
+  max-width: 400px;
+}
+
+.recipe-img {}
+
+.recipe-img img {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+/* Comments */
+
+.comment-container {
+  margin: 20px 10px;
+}
+
+.comment {
+  display: flex;
+  border-bottom: 1px solid #aaa;
+  border-top: 1px solid #aaa;
+}
+
+.comment p {
+  padding: 10px;
+  margin: 5px;
+}
+
+.commenter {
+  border-right: 1px solid #aaa
+}
+
+.comment h2 {
+  max-width: 200px;
 }

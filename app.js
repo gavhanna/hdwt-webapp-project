@@ -14,7 +14,8 @@ const db = mysql.createConnection({
   host: "den1.mysql5.gear.host",
   user: "recipebook",
   password: "Gz4~?D5lOoF0",
-  database: "recipebook"
+  database: "recipebook",
+  multipleStatements: true
 });
 
 
@@ -35,10 +36,21 @@ app.get("/recipes", function (req, res) {
   const sql = `SELECT * FROM Recipe;`;
   const query = db.query(sql, (err, response) => {
     if (err) throw err;
-    console.log(response);
     res.render("recipes", { root: VIEWS, response });
   });
   console.log("Recipes Page")
+});
+
+app.get("/recipes/:id", function (req, res) {
+  const sql = `SELECT * FROM Recipe WHERE id = ${req.params.id};
+              SELECT * FROM Ingredient WHERE recipe_id = ${req.params.id};
+              SELECT * FROM Opinion WHERE recipe_id = ${req.params.id}`;
+  const query = db.query(sql, (err, response) => {
+    console.log(response);
+    if (err) throw err;
+    res.render("recipe", { root: VIEWS, response });
+  });
+  console.log("Recipe Page")
 });
 
 // create db table
