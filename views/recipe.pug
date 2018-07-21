@@ -1,0 +1,35 @@
+extends layout
+
+block content
+
+  h1.recipe-title #{response[0][0].title}
+  p.recipe-subtitle #{response[0][0].description}
+  .recipe-container
+    .left-panel.panel
+      .recipe-info-container
+        h2 Info
+        .recipe-info
+          span Prep Time
+          span #{response[0][0].preptime}hrs
+      .recipe-info 
+        span Cooking Time
+        span #{response[0][0].cooktime}hrs
+      .instructions
+        h2 Instructions
+        p #{response[0][0].instructions}
+      .ingredients
+        h2 Ingredients
+        ul
+          each ingredient in response[1]
+            li 
+              span #{ingredient.name}
+              span #{ingredient.amount}
+    .right-panel.panel
+      .recipe-img
+        img(src=response[0][0].img_url, alt=response[0][0].title)
+  .comment-container
+    h2 Comments
+    each comment in response[2]
+      .comment
+        p.commenter #{comment.name}
+        p #{comment.content}
