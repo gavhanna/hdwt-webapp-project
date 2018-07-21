@@ -9,6 +9,11 @@ ul {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+  color: #252525;
+}
+
 body {
   font-family: "Quicksand", sans-serif;
   color: #333;
@@ -31,14 +36,23 @@ nav ul {
   justify-content: space-between;
 }
 
-header {
-  /* background: orange;
-color: white; */
+nav ul li {
+  display: flex;
+  justify-content: center;
+  height: 100%;
 }
 
-nav ul li {
-  padding: 12px;
+nav ul li a {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
   margin: 5px;
+  transition: all .2s ease-in-out;
+}
+
+nav ul li a:hover {
+  background: #333;
+  color: white;
 }
 
 header h1 {
@@ -68,8 +82,14 @@ header h1 {
 
 /* Recipes Page */
 
+.recipes-page-title {
+  text-align: center;
+}
+
 .recipes-container {
   display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .recipes-card {
@@ -81,6 +101,11 @@ header h1 {
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 4px 14px 31px 1px rgba(0, 0, 0, 0.75);
+  transition: all .2s ease-in-out;
+}
+
+.recipes-card:hover {
+  box-shadow: 2px 4px 21px 1px rgba(0, 0, 0, 0.75);
 }
 
 .recipes-card-content h2 {
@@ -99,6 +124,15 @@ header h1 {
   flex: 1;
 }
 
+.recipes-card-content p {
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipes-card-content a {}
+
 /* Recipe page */
 
 .recipe-title {
@@ -109,10 +143,13 @@ header h1 {
 
 .recipe-subtitle {
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .recipe-container {
   display: flex;
+  padding: 20px;
+  box-shadow: 2px 4px 21px 1px rgba(0, 0, 0, 0.75);
 }
 
 .panel {
@@ -150,7 +187,9 @@ header h1 {
 /* Comments */
 
 .comment-container {
-  margin: 20px 10px;
+  margin: 40px 0px;
+  padding: 20px;
+  box-shadow: 2px 4px 21px 1px rgba(0, 0, 0, 0.75);
 }
 
 .comment {

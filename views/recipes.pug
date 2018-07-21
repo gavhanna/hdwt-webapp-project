@@ -2,15 +2,20 @@ extends layout
 
 block content
 
-  h1 Recipes
+  h1.recipes-page-title Recipes
   .recipes-container
     each recipe in response
-      .recipes-card
-        .recipes-card-img-container
-          img(src=recipe.img_url, alt=recipe.title)
-        .recipes-card-content
-          h2 #{recipe.title}
-          p #{recipe.description}
-          p #{recipe.preptime}hrs
-          p #{recipe.cooktime}hrs
-          a(href="/recipes/" + recipe.id) View
+      a(href="/recipes/" + recipe.id)
+        .recipes-card
+          .recipes-card-img-container
+            img(src=recipe.img_url, alt=recipe.title)
+          .recipes-card-content
+            h2 #{recipe.title}
+            p #{recipe.description}
+            p 
+              span Preperation 
+              span #{recipe.preptime}hrs
+            p 
+              span Cooking 
+              span #{recipe.cooktime}hrs
+            

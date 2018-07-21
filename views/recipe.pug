@@ -14,9 +14,6 @@ block content
       .recipe-info 
         span Cooking Time
         span #{response[0][0].cooktime}hrs
-      .instructions
-        h2 Instructions
-        p #{response[0][0].instructions}
       .ingredients
         h2 Ingredients
         ul
@@ -24,6 +21,9 @@ block content
             li 
               span #{ingredient.name}
               span #{ingredient.amount}
+      .instructions
+        h2 Instructions
+        p #{response[0][0].instructions}
     .right-panel.panel
       .recipe-img
         img(src=response[0][0].img_url, alt=response[0][0].title)
