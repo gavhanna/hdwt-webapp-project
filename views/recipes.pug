@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+  h1 Recipes
+  .recipe-container
+    each recipe in response
+      .recipe-card
+        .recipe-card-img-container
+          img(src=recipe.img_url, alt=recipe.title)
+        .recipe-card-content
+          h2 #{recipe.title}
+          p #{recipe.description}
+          p #{recipe.preptime}hrs
+          p #{recipe.cooktime}hrs
+          a(href="/recipes/" + recipe.id) View
