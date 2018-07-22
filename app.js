@@ -27,8 +27,11 @@ db.connect((err) => {
 
 // function to setup a simple hello response
 app.get("/", function (req, res) {
-  // res.send("Hello, world!");
-  res.render("index", { root: VIEWS });
+  const sql = `SELECT * FROM Recipe ORDER BY RAND() LIMIT 1;`;
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    res.render("index", { root: VIEWS, response });
+  });
   console.log("Index Page");
 });
 

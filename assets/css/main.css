@@ -80,6 +80,24 @@ header h1 {
   height: 100%;
 }
 
+/* Home Page */
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+}
+
+.home-welcome-message h2 {
+  font-family: 'Pacifico';
+  font-size: 5rem;
+}
+
+.home-suggestions h3 a {
+  text-decoration-line: underline;
+}
+
 /* Recipes Page */
 
 .recipes-page-title {

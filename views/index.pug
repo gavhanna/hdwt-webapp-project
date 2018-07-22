@@ -2,3 +2,28 @@ extends layout
 
 block content
   include partials/hero
+
+  .home-content
+    .home-welcome-message
+      h3 Welcome to the 
+      h2 Recipe Book
+      p Check out some user submitted recipes, or share your own creations!
+    .home-suggestions
+      h3  
+        a(href="/recipes") Click here 
+        | to view recipes, or take a look at this random sample!
+      .recipes-container
+        each recipe in response
+          a(href="/recipes/" + recipe.id)
+            .recipes-card
+              .recipes-card-img-container
+                img(src=recipe.img_url, alt=recipe.title)
+              .recipes-card-content
+                h2 #{recipe.title}
+                p #{recipe.description}
+                p 
+                  span Preperation 
+                  span #{recipe.preptime}hrs
+                p 
+                  span Cooking 
+                  span #{recipe.cooktime}hrs
