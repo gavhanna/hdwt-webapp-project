@@ -74,10 +74,15 @@ header h1 {
 }
 
 .hero-content {
-  padding: 20px;
+  /*padding: 20px;*/
   font-size: 2rem;
   background: #0000003f;
   height: 100%;
+}
+
+.hero-content h1,
+.hero-content h2 {
+  padding: 10px;
 }
 
 /* Home Page */
