@@ -2,7 +2,10 @@ extends layout
 
 block content
 
-  h1.recipes-page-title Recipes
+  .hero
+    .hero-content
+      h1 Recipes
+      p Click to view a recipe
   .recipes-container
     each recipe in response
       a(href="/recipes/" + recipe.id)
