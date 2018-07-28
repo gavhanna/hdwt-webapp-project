@@ -233,3 +233,23 @@ header h1 {
 .comment h2 {
   max-width: 200px;
 }
+
+/* Add Page */
+
+.add-recipe-page {}
+
+.add-recipe-page h2 {
+  text-align: center;
+}
+
+fieldset {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  border: none;
+}
+
+fieldset input,
+fieldset textarea {
+  margin: 0 auto;
+}

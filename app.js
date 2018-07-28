@@ -1,11 +1,13 @@
 const express = require("express"); // call express to be used by the application
 const app = express();
 const mysql = require("mysql");
+const bodyParser = require("body-parser");
 
 const path = require("path");
 const VIEWS = path.join(__dirname, "views");
 
 app.set("view engine", "pug");
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("assets"));
 app.use(express.static("images"));
 
@@ -54,6 +56,22 @@ app.get("/recipes/:id", function (req, res) {
     res.render("recipe", { root: VIEWS, response });
   });
   console.log("Recipe Page")
+});
+
+// Add Recipe
+app.get("/add", function (req, res) {
+  res.render("add", { root: VIEWS });
+});
+
+app.post("/add", function (req, res) {
+  const sql = `INSERT INTO Recipe (title, description, instructions, preptime, cooktime, img_url) VALUES
+  ("${req.body.title}", "${req.body.description}", "${req.body.instructions}", ${req.body.preptime}, ${req.body.cooktime}, "${req.body.imgurl}");`;
+  const query = db.query(sql, (err, response) => {
+    console.log(req.body)
+    if (err) throw err;
+    res.render("recipes", { root: VIEWS, response });
+  });
+
 });
 
 // create db table

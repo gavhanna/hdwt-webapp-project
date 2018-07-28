@@ -1,0 +1,31 @@
+extends layout 
+block content
+
+  .add-recipe-page
+    h2 Add New Recipe
+
+    form(method="post")
+      fieldset
+        label(for="title") Title
+        input(type="text", name="title")
+      fieldset
+        label(for="description") Description
+        input(type="text", name="description")
+      fieldset
+        label(for="preptime") Prep Time
+        input(type="number", name="preptime")
+      fieldset
+        label(for="cooktime") Cooking Time
+        input(type="number", name="cooktime")
+      fieldset
+        label(for="instructions") Instructions
+        textarea(type="text", name="instructions")
+      fieldset
+        label(for="imgurl") Image URL
+        input(type="text", name="imgurl")
+      fieldset
+        label(for="ingredientname1") Ingredient Name 1
+        input(type="text", name="ingredientname1")
+        label(for="ingredientamount1") Ingredient Amount 1
+        input(type="number", name="ingredientamount1")
+      button.submit-btn(type="submit") Submit
