@@ -15,7 +15,7 @@ const pageTransition = function () {
 };
 function handleClick(e) {
   //e.preventDefault();
-  pageBody.classList.remove("enter-transition")
+  pageBody.classList.remove("enter-transition");
   pageBody.classList.add("exit-transition");
 
   if (e.target.href) {
