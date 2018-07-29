@@ -262,3 +262,19 @@ fieldset input,
 fieldset textarea {
   margin: 0 auto;
 }
+
+.submit-btn {
+  background: #252525;
+  border: 2px solid #252525;
+  padding: 10px;
+  margin: 10px auto;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.submit-btn:hover {
+  background: white;
+  color: #252525;
+}

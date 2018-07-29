@@ -59,17 +59,39 @@ app.get("/recipes/:id", function (req, res) {
 });
 
 // Add Recipe
-app.get("/add", function (req, res) {
-  res.render("add", { root: VIEWS });
+app.get("/create", function (req, res) {
+  res.render("create", { root: VIEWS });
 });
 
-app.post("/add", function (req, res) {
+app.post("/create", function (req, res) {
   const sql = `INSERT INTO Recipe (title, description, instructions, preptime, cooktime, img_url) VALUES
   ("${req.body.title}", "${req.body.description}", "${req.body.instructions}", ${req.body.preptime}, ${req.body.cooktime}, "${req.body.imgurl}");`;
   const query = db.query(sql, (err, response) => {
     console.log(req.body)
     if (err) throw err;
     res.redirect("/recipes");
+  });
+});
+
+app.get("/update/:id", function (req, res) {
+  const sql = `SELECT * FROM Recipe WHERE id = ${req.params.id};`;
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    res.render("update", { root: VIEWS, recipe: response[0] });
+  });
+  console.log("Update Page")
+});
+
+app.post("/update/:id", function (req, res) {
+  const sql = `UPDATE Recipe SET title = "${req.body.title}", 
+                                  description = "${req.body.description}", 
+                                  preptime = ${req.body.preptime},
+                                  cooktime = ${req.body.cooktime},
+                                  instructions = "${req.body.instructions}",
+                                  img_url = "${req.body.imgurl}" WHERE Id = ${req.params.id}`;
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    res.redirect("/recipes/" + req.params.id);
   });
 });
 
