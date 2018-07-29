@@ -10,17 +10,17 @@ block content
         h2 Info
         .recipe-info
           span Prep Time
-          span #{response[0][0].preptime}hrs
+          span #{response[0][0].preptime} minutes
       .recipe-info 
         span Cooking Time
-        span #{response[0][0].cooktime}hrs
-      .ingredients
-        h2 Ingredients
-        ul
-          each ingredient in response[1]
-            li 
-              span #{ingredient.name}
-              span #{ingredient.amount}
+        span #{response[0][0].cooktime} minutes
+      //- .ingredients
+      //-   h2 Ingredients
+      //-   ul
+      //-     each ingredient in response[1]
+      //-       li 
+      //-         span #{ingredient.name}
+      //-         span #{ingredient.amount}
       .instructions
         h2 Instructions
         p #{response[0][0].instructions}
