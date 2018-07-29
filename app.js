@@ -69,9 +69,16 @@ app.post("/add", function (req, res) {
   const query = db.query(sql, (err, response) => {
     console.log(req.body)
     if (err) throw err;
-    res.render("recipes", { root: VIEWS, response });
+    res.redirect("/recipes");
   });
+});
 
+app.get("/delete/:id", function (req, res) {
+  const sql = `DELETE FROM Recipe WHERE id = ${req.params.id};`
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    res.redirect("/recipes");
+  });
 });
 
 // create db table

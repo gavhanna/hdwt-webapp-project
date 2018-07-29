@@ -116,6 +116,7 @@ header h1 {
 }
 
 .recipes-card {
+  position: relative;
   width: 300px;
   height: 250px;
   padding: 20px;
@@ -144,7 +145,7 @@ header h1 {
   height: 100px;
   width: auto;
   margin: 10px auto;
-  flex: 1;
+  display: flex;
 }
 
 .recipes-card-content p {
@@ -154,7 +155,13 @@ header h1 {
   justify-content: space-between;
 }
 
-.recipes-card-content a {}
+.delete-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 100;
+  padding: 10px;
+}
 
 /* Recipe page */
 
@@ -199,7 +206,9 @@ header h1 {
   max-width: 400px;
 }
 
-.recipe-img {}
+.recipe-img {
+  margin: 0 auto;
+}
 
 .recipe-img img {
   margin: 0 auto;

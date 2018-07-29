@@ -1,6 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-  pageTransition();
-});
 
 const pageTransition = function () {
   const pageBody = document.querySelector("body");
@@ -15,16 +12,16 @@ const pageTransition = function () {
     a.addEventListener("click", handleClick);
   });
 
-  function handleClick(e) {
-    //e.preventDefault();
-    pageBody.classList.remove("enter-transition")
-    pageBody.classList.add("exit-transition");
-
-    if (e.target.href) {
-      setTimeout(() => {
-        window.location.href = e.target.href;
-      }, 300);
-    }
-  }
 };
+function handleClick(e) {
+  //e.preventDefault();
+  pageBody.classList.remove("enter-transition")
+  pageBody.classList.add("exit-transition");
+
+  if (e.target.href) {
+    setTimeout(() => {
+      window.location.href = e.target.href;
+    }, 300);
+  }
+}
 
