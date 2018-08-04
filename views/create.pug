@@ -30,6 +30,7 @@ block content
           .ingredients
             input(type="text", name="ingredient[1][name]", placeholder="Ingredient", required)
             input(type="number", name="ingredient[1][amount]", placeholder="1", required, min="0")
-      button(type="button")#addIngredientButton Add Another Ingredient
+      button(type="button")#addIngredientButton
+        i.fas.fa-plus
       fieldset
         button.submit-btn(type="submit") Submit
