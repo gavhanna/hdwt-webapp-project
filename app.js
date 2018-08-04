@@ -130,11 +130,13 @@ app.get("/update/:id", function (req, res) {
 app.post("/update/:id", function (req, res) {
   const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
   const newIngredients = req.body.ingredient;
+  // loop through current set of ingredients and change the name and amounts
+  // to the new values from the form
   currentIngredients.forEach((i, n) => {
     i.name = newIngredients[n].name;
     i.amount = newIngredients[n].amount;
   });
-
+  // loop through all of the JSON file and change the old values for new values
   ingredientsJson.forEach((i, n) => {
     currentIngredients.forEach((j, k) => {
       if (i.id === j.id) {
@@ -157,7 +159,6 @@ app.post("/update/:id", function (req, res) {
       if (err) {
         throw (err);
       } else {
-        //ingredientsJson.push(...newIngredients); // add the information from the above variable
         json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
         fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
       }
