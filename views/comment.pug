@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+  .comment-container
+      h2 Comments
+      .add-comment
+        form(action="/comment/" + comment.id + "/" + comment.recipe_id, method="post")
+          input(type="text", name="name", placeholder="Name", value=comment.name)
+          input(type="text", name="comment", placeholder="Comment", value=comment.content)
+          button.button Submit

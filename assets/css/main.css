@@ -216,6 +216,20 @@ header h1 {
   height: auto;
 }
 
+/* Create Recipe Page */
+
+#addIngredientButton {
+  margin: 10px auto;
+  background: skyblue;
+  display: block;
+}
+
+.add-recipe-page input,
+.add-recipe-page textarea {
+  padding: 10px;
+  border: 1px solid #555;
+}
+
 /* Comments */
 
 .comment-container {
@@ -228,11 +242,22 @@ header h1 {
   display: flex;
   border-bottom: 1px solid #aaa;
   border-top: 1px solid #aaa;
+  position: relative;
 }
 
 .comment p {
   padding: 10px;
   margin: 5px;
+}
+
+.comment-options {
+  text-align: right;
+  position: absolute;
+  right: 10px;
+}
+
+.comment-options a {
+  padding: 10px;
 }
 
 .commenter {
@@ -241,6 +266,11 @@ header h1 {
 
 .comment h2 {
   max-width: 200px;
+}
+
+.add-comment input {
+  padding: 10px;
+  margin: 0 10px 0 0;
 }
 
 /* Add Page */
@@ -272,7 +302,8 @@ fieldset textarea {
   width: 50px;
 }
 
-.submit-btn {
+.submit-btn,
+button {
   background: #252525;
   border: 2px solid #252525;
   padding: 10px;
@@ -283,7 +314,8 @@ fieldset textarea {
   transition: all .2s ease-in-out;
 }
 
-.submit-btn:hover {
+.submit-btn:hover,
+button:hover {
   background: white;
   color: #252525;
 }

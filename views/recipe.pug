@@ -33,3 +33,11 @@ block content
       .comment
         p.commenter #{comment.name}
         p #{comment.content}
+          .comment-options
+            a(href="/comment/" + comment.id) Edit
+            a(href="/delete-comment/" + comment.id + "/" + comment.recipe_id) Delete
+    .add-comment
+      form(action="/newcomment/" + response[0][0].id, method="post")
+        input(type="text", name="name", placeholder="Name Goes Here")
+        input(type="text", name="comment", placeholder="What do you think?")
+        button.button Submit

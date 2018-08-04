@@ -73,7 +73,6 @@ app.post("/create", function (req, res) {
   // get the highest ID number form the JSON and add 1 to it to get the next ID to be used
   // taken from the following stackoverflow respone:
   // https://stackoverflow.com/questions/38854230/search-for-the-biggest-id-and-add-new-biggest-id-in-json-file-nodejs
-
   function getNextId(obj) {
     return (Math.max.apply(Math, obj.map(function (o) {
       return o.id;
@@ -185,6 +184,43 @@ app.get("/delete-ingredient/:id", (req, res) => {
   res.redirect("/update/" + req.params.id);
 });
 
+app.post("/newcomment/:id", (req, res) => {
+  console.log(req.body);
+  const sql = `INSERT INTO Opinion (recipe_id, name, content) VALUES (${req.params.id}, "${req.body.name}", "${req.body.comment}" )`;
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    res.redirect("/recipes/" + req.params.id);
+  });
+});
+
+app.get("/comment/:id", (req, res) => {
+  const sql = `SELECT * FROM Opinion WHERE id = ${req.params.id};`;
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    const comment = response[0];
+    console.log(comment);
+    res.render("comment", { root: VIEWS, comment: comment });
+  });
+});
+
+app.post("/comment/:id/:recipe_id", (req, res) => {
+  const sql = `UPDATE Opinion SET name = "${req.body.name}", 
+  content = "${req.body.comment}" WHERE Id = ${req.params.id}`;
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    console.log(response);
+    res.redirect("/recipes/" + req.params.recipe_id);
+  });
+});
+
+app.get("/delete-comment/:id/:recipe_id", function (req, res) {
+  const sql = `DELETE FROM Opinion WHERE id = ${req.params.id};`
+  const query = db.query(sql, (err, response) => {
+    if (err) throw err;
+    res.redirect("/recipes/" + req.params.recipe_id);
+  });
+});
+
 // create db table
 app.get("/createtables", (req, res) => {
   const sql = `
@@ -201,7 +237,9 @@ WHERE id = 2 ;
 });
 
 app.get('/querydb', function (req, res) {
-  const sql = `SELECT * FROM Recipe;`;
+  const sql = `select *
+  from INFORMATION_SCHEMA.COLUMNS
+  where TABLE_NAME='Opinion'`;
   db.query(sql, (err, response) => {
     if (err) throw err;
     console.log(response);
