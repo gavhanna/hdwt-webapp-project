@@ -30,17 +30,27 @@ document.addEventListener("DOMContentLoaded", () => {
       const ingredientsDiv = document.createElement("div");
       const inputName = document.createElement("input");
       const inputAmount = document.createElement("input");
+      const deleteThisBtn = document.createElement("button");
       inputName.name = `ingredient[${total}][name]`;
       inputAmount.name = `ingredient[${total}][amount]`;
 
+      deleteThisBtn.classList.add("button");
+      deleteThisBtn.innerText = "Delete";
+      deleteThisBtn.type = "button";
       ingredientsDiv.classList.add("ingredients");
-      field.innerHTML = `Ingredient ${total}`;
+      label.innerText = `Ingredient ${total}`;
       inputName.type = "text";
       inputAmount.type = "number";
 
+      deleteThisBtn.addEventListener("click", function () {
+        this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+        total--;
+        ingredientContainer.setAttribute("data-total", total);
+      })
 
       ingredientsDiv.appendChild(inputName);
       ingredientsDiv.appendChild(inputAmount);
+      ingredientsDiv.appendChild(deleteThisBtn);
       field.appendChild(label);
       field.appendChild(ingredientsDiv);
       ingredientContainer.appendChild(field);
