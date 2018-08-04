@@ -263,6 +263,15 @@ fieldset textarea {
   margin: 0 auto;
 }
 
+.ingredients {
+  display: block;
+  padding: 10px;
+}
+
+.ingredients input[type="number"] {
+  width: 50px;
+}
+
 .submit-btn {
   background: #252525;
   border: 2px solid #252525;

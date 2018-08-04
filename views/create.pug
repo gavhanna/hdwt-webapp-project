@@ -23,10 +23,13 @@ block content
       fieldset
         label(for="imgurl") Image URL
         input(type="text", name="imgurl")
-      //- fieldset
-      //-   label(for="ingredientname1") Ingredient Name 1
-      //-   input(type="text", name="ingredientname1")
-      //-   label(for="ingredientamount1") Ingredient Amount 1
-      //-   input(type="number", name="ingredientamount1")
+      .ingredient-container(data-total=1)
+        h2 Ingredients
+        fieldset
+          label(for="ingredient[0][name]") Ingredient Name + Amount
+          .ingredients
+            input(type="text", name="ingredient[0][name]", placeholder="Ingredient")
+            input(type="number", name="ingredient[0][amount]", placeholder="1")
+      button(type="button")#addIngredientButton Add Another Ingredient
       fieldset
         button.submit-btn(type="submit") Submit

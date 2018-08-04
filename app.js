@@ -2,6 +2,7 @@ const express = require("express"); // call express to be used by the applicatio
 const app = express();
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
+const fs = require('fs');
 
 const path = require("path");
 const VIEWS = path.join(__dirname, "views");
@@ -10,6 +11,9 @@ app.set("view engine", "pug");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("assets"));
 app.use(express.static("images"));
+app.use(express.static("models"));
+
+let ingredientsJson = require('./models/ingredients.json');
 
 
 const db = mysql.createConnection({
@@ -47,13 +51,14 @@ app.get("/recipes", function (req, res) {
 });
 
 app.get("/recipes/:id", function (req, res) {
+  const ingredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
+
   const sql = `SELECT * FROM Recipe WHERE id = ${req.params.id};
-              SELECT * FROM Ingredient WHERE recipe_id = ${req.params.id};
-              SELECT * FROM Opinion WHERE recipe_id = ${req.params.id}`;
+              SELECT * FROM Opinion WHERE recipe_id = ${req.params.id};`;
   const query = db.query(sql, (err, response) => {
-    console.log(response);
     if (err) throw err;
-    res.render("recipe", { root: VIEWS, response });
+    console.log(response);
+    res.render("recipe", { root: VIEWS, response, ingredients });
   });
   console.log("Recipe Page")
 });
@@ -64,11 +69,49 @@ app.get("/create", function (req, res) {
 });
 
 app.post("/create", function (req, res) {
+  /// JSON
+  // get the highest ID number form the JSON and add 1 to it to get the next ID to be used
+  // taken from the following stackoverflow respone:
+  // https://stackoverflow.com/questions/38854230/search-for-the-biggest-id-and-add-new-biggest-id-in-json-file-nodejs
+
+  function getNextId(obj) {
+    return (Math.max.apply(Math, obj.map(function (o) {
+      return o.id;
+    })) + 1);
+  }
+
+
+
+  //SQL
   const sql = `INSERT INTO Recipe (title, description, instructions, preptime, cooktime, img_url) VALUES
   ("${req.body.title}", "${req.body.description}", "${req.body.instructions}", ${req.body.preptime}, ${req.body.cooktime}, "${req.body.imgurl}");`;
   const query = db.query(sql, (err, response) => {
-    console.log(req.body)
     if (err) throw err;
+
+    // save the ingredients
+    // write to JSON file with the response.insertId as the recipe id
+    let newId = getNextId(ingredientsJson);
+    const newIngredients = [];
+    req.body.ingredient.forEach(i => {
+      newIngredients.push({
+        "id": newId,
+        "name": i.name,
+        "amount": i.amount,
+        "recipeId": response.insertId
+      })
+      console.log(newId);
+      newId++;
+    });
+
+    fs.readFile('./models/ingredients.json', 'utf8', function readFileCallback(err, data) {
+      if (err) {
+        throw (err);
+      } else {
+        ingredientsJson.push(...newIngredients); // add the information from the above variable
+        json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
+        fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
+      }
+    });
     res.redirect("/recipes");
   });
 });

@@ -14,13 +14,13 @@ block content
       .recipe-info 
         span Cooking Time
         span #{response[0][0].cooktime} minutes
-      //- .ingredients
-      //-   h2 Ingredients
-      //-   ul
-      //-     each ingredient in response[1]
-      //-       li 
-      //-         span #{ingredient.name}
-      //-         span #{ingredient.amount}
+      .ingredients
+        h2 Ingredients
+        ul
+          each ingredient in ingredients
+            li 
+              span #{ingredient.name}
+              span #{ingredient.amount}
       .instructions
         h2 Instructions
         p #{response[0][0].instructions}
@@ -29,7 +29,7 @@ block content
         img(src=response[0][0].img_url, alt=response[0][0].title)
   .comment-container
     h2 Comments
-    each comment in response[2]
+    each comment in response[1]
       .comment
         p.commenter #{comment.name}
         p #{comment.content}
