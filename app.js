@@ -80,8 +80,6 @@ app.post("/create", function (req, res) {
     })) + 1);
   }
 
-
-
   //SQL
   const sql = `INSERT INTO Recipe (title, description, instructions, preptime, cooktime, img_url) VALUES
   ("${req.body.title}", "${req.body.description}", "${req.body.instructions}", ${req.body.preptime}, ${req.body.cooktime}, "${req.body.imgurl}");`;
@@ -173,6 +171,18 @@ app.get("/delete/:id", function (req, res) {
     if (err) throw err;
     res.redirect("/recipes");
   });
+});
+
+app.get("/delete-ingredient/:id", (req, res) => {
+  const id = req.params.id;
+  ingredientsJson.forEach((i, n) => {
+    if (i.id == id) {
+      ingredientsJson.splice(n, 1);
+    }
+  });
+  json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
+  fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
+  res.redirect("/recipes/" + req.params.id);
 });
 
 // create db table

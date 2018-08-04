@@ -31,5 +31,6 @@ block content
             .ingredients
               input(type="text", name="ingredient["+ingredient.id+"][name]", value=ingredient.name) 
               input(type="number", name="ingredient["+ingredient.id+"][amount]", value=ingredient.amount)
+              a(href="/delete-ingredient/" + ingredient.id) Delete
       fieldset
         button.submit-btn(type="submit") Update

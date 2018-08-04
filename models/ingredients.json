@@ -24,12 +24,6 @@
         "recipeId": 19
     },
     {
-        "id": 5,
-        "name": "Coke",
-        "amount": "1",
-        "recipeId": 24
-    },
-    {
         "id": 6,
         "name": "Aluminium Can",
         "amount": "1",
