@@ -161,6 +161,12 @@ header h1 {
   top: 10px;
   z-index: 100;
   padding: 10px;
+  font-size: 1.5rem;
+  transition: all .2s ease-in-out;
+}
+
+.delete-btn:hover {
+  color: red;
 }
 
 /* Recipe page */
@@ -303,6 +309,7 @@ fieldset textarea {
 }
 
 .submit-btn,
+.button,
 button {
   background: #252525;
   border: 2px solid #252525;
@@ -315,6 +322,7 @@ button {
 }
 
 .submit-btn:hover,
+.button:hover,
 button:hover {
   background: white;
   color: #252525;
@@ -330,4 +338,27 @@ textarea:valid {
 input:invalid,
 textarea:invalid {
   border: 1px solid salmon;
+}
+
+fieldset {
+  position: relative;
+  margin-top: 30px;
+}
+
+fieldset>label {
+  position: absolute;
+  width: 200px;
+  left: 50%;
+  top: -25px;
+  margin-left: -100px;
+  text-align: center;
+}
+
+input:invalid~label::after,
+textarea:invalid~label::after {
+  content: "Required" !important;
+  color: red;
+  position: absolute;
+  right: -70px;
+  top: 30px;
 }

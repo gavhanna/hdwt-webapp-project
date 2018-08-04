@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   pageTransition();
-  const deleteBtns = document.querySelectorAll(".delete-btn");
+  const deleteBtns = document.querySelectorAll(".deletable");
   const addIngredientButton = document.querySelector("#addIngredientButton");
   const ingredientContainer = document.querySelector(".ingredient-container");
   deleteBtns.forEach(btn => {
@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })
 
+
+  // Check if theres an addIngredient button on the page
+  // If there is, make a new ingredient input section appear on the screen
   if (addIngredientButton) {
     addIngredientButton.addEventListener("click", e => {
       let oldTotal = ingredientContainer.getAttribute("data-total");
@@ -47,13 +50,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
-
-  // Form Validation
-  const inputs = document.querySelectorAll("input");
-
-  if (inputs) {
-    console.log(inputs);
-  }
 
 });

@@ -24,6 +24,9 @@ block content
       .instructions
         h2 Instructions
         p #{response[0][0].instructions}
+      .recipe-options
+        a.button(href="/delete/" + response[0][0].id, style="margin-right: 10px;") Delete
+        a.button(href="/update/" + response[0][0].id) Edit
     .right-panel.panel
       .recipe-img
         img(src=response[0][0].img_url, alt=response[0][0].title)
@@ -35,7 +38,7 @@ block content
         p #{comment.content}
           .comment-options
             a(href="/comment/" + comment.id) Edit
-            a(href="/delete-comment/" + comment.id + "/" + comment.recipe_id) Delete
+            a.deletable(href="/delete-comment/" + comment.id + "/" + comment.recipe_id) Delete
     .add-comment
       form(action="/newcomment/" + response[0][0].id, method="post")
         input(type="text", name="name", placeholder="Name Goes Here", required)

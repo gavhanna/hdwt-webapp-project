@@ -6,31 +6,31 @@ block content
 
     form(method="post")
       fieldset
+        input(type="text", name="title",value=recipe.title, required)
         label(for="title") Title
-        input(type="text", name="title",value=recipe.title)
       fieldset
+        input(type="text", name="description", value=recipe.description, required)
         label(for="description") Description
-        input(type="text", name="description", value=recipe.description)
       fieldset
+        input(type="number", name="preptime", value=recipe.preptime, required)
         label(for="preptime") Prep Time
-        input(type="number", name="preptime", value=recipe.preptime)
       fieldset
+        input(type="number", name="cooktime", value=recipe.cooktime, required)
         label(for="cooktime") Cooking Time
-        input(type="number", name="cooktime", value=recipe.cooktime)
       fieldset
+        textarea(type="text", name="instructions", rows="5", required) #{recipe.instructions}
         label(for="instructions") Instructions
-        textarea(type="text", name="instructions", rows="5") #{recipe.instructions}
       fieldset
+        input(type="text", name="imgurl", value=recipe.img_url, required)
         label(for="imgurl") Image URL
-        input(type="text", name="imgurl", value=recipe.img_url)
       .ingredient-container
         h2 Ingredients
         each ingredient in ingredients
           fieldset
             label Ingredient Name + Amount
             .ingredients
-              input(type="text", name="ingredient["+ingredient.id+"][name]", value=ingredient.name) 
-              input(type="number", name="ingredient["+ingredient.id+"][amount]", value=ingredient.amount)
-              a(href="/delete-ingredient/" + ingredient.id) Delete
+              input(type="text", name="ingredient["+ingredient.id+"][name]", value=ingredient.name, required) 
+              input(type="number", name="ingredient["+ingredient.id+"][amount]", value=ingredient.amount, required)
+              a.button.deletable(href="/delete-ingredient/" + ingredient.id) Delete
       fieldset
         button.submit-btn(type="submit") Update
