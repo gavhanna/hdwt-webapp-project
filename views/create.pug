@@ -26,10 +26,10 @@ block content
       .ingredient-container(data-total=1)
         h2 Ingredients
         fieldset
-          label(for="ingredient[0][name]") Ingredient Name + Amount
+          label(for="ingredient[1][name]") Ingredient Name + Amount
           .ingredients
-            input(type="text", name="ingredient[0][name]", placeholder="Ingredient", required)
-            input(type="number", name="ingredient[0][amount]", placeholder="1", required, min="0")
+            input(type="text", name="ingredient[1][name]", placeholder="Ingredient", required)
+            input(type="number", name="ingredient[1][amount]", placeholder="1", required, min="0")
       button(type="button")#addIngredientButton Add Another Ingredient
       fieldset
         button.submit-btn(type="submit") Submit

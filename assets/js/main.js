@@ -22,19 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // If there is, make a new ingredient input section appear on the screen
   if (addIngredientButton) {
     addIngredientButton.addEventListener("click", e => {
-      let oldTotal = ingredientContainer.getAttribute("data-total");
-      let newTotal = parseInt(oldTotal) + 1;
+      let total = parseInt(ingredientContainer.getAttribute("data-total"));
 
+      total++;
       const field = document.createElement("fieldset");
       const label = document.createElement("label");
       const ingredientsDiv = document.createElement("div");
       const inputName = document.createElement("input");
       const inputAmount = document.createElement("input");
-      inputName.name = `ingredient[${oldTotal}][name]`;
-      inputAmount.name = `ingredient[${oldTotal}][amount]`;
+      inputName.name = `ingredient[${total}][name]`;
+      inputAmount.name = `ingredient[${total}][amount]`;
 
       ingredientsDiv.classList.add("ingredients");
-      field.innerHTML = `Ingredient ${newTotal}`;
+      field.innerHTML = `Ingredient ${total}`;
       inputName.type = "text";
       inputAmount.type = "number";
 
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ingredientContainer.appendChild(field);
 
 
-      ingredientContainer.setAttribute("data-total", parseInt(oldTotal) + 1);
+      ingredientContainer.setAttribute("data-total", total);
     });
   }
 

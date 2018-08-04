@@ -1,29 +1,5 @@
 [
     {
-        "id": 1,
-        "name": "Base",
-        "amount": "1",
-        "recipeId": 19
-    },
-    {
-        "id": 2,
-        "name": "Pepperoni",
-        "amount": "15",
-        "recipeId": 19
-    },
-    {
-        "id": 3,
-        "name": "Mozzarella",
-        "amount": "2",
-        "recipeId": 19
-    },
-    {
-        "id": 4,
-        "name": "Tomato Sauce",
-        "amount": "1",
-        "recipeId": 19
-    },
-    {
         "id": 6,
         "name": "Aluminium Can",
         "amount": "1",
@@ -34,5 +10,29 @@
         "name": "Stuff",
         "amount": "1",
         "recipeId": 25
+    },
+    {
+        "id": 8,
+        "name": "Base",
+        "amount": "1",
+        "recipeId": "19"
+    },
+    {
+        "id": 9,
+        "name": "Pepperoni",
+        "amount": "15",
+        "recipeId": "19"
+    },
+    {
+        "id": 10,
+        "name": "Mozzarella",
+        "amount": "2",
+        "recipeId": "19"
+    },
+    {
+        "id": 11,
+        "name": "Tomato Sauce",
+        "amount": "1",
+        "recipeId": "19"
     }
 ]

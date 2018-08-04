@@ -31,7 +31,7 @@ db.connect((err) => {
 });
 
 
-// function to setup a simple hello response
+// Root/Index
 app.get("/", function (req, res) {
   const sql = `SELECT * FROM Recipe ORDER BY RAND() LIMIT 1;`;
   const query = db.query(sql, (err, response) => {
@@ -41,6 +41,7 @@ app.get("/", function (req, res) {
   console.log("Index Page");
 });
 
+// GET Recipes
 app.get("/recipes", function (req, res) {
   const sql = `SELECT * FROM Recipe;`;
   const query = db.query(sql, (err, response) => {
@@ -50,24 +51,26 @@ app.get("/recipes", function (req, res) {
   console.log("Recipes Page")
 });
 
-app.get("/recipes/:id", function (req, res) {
-  const ingredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
 
+// GET Single Recipe
+app.get("/recipes/:id", function (req, res) {
+  const ingredients = ingredientsJson.filter(ingredient => ingredient.recipeId == parseInt(req.params.id));
+  console.log(ingredients);
   const sql = `SELECT * FROM Recipe WHERE id = ${req.params.id};
               SELECT * FROM Opinion WHERE recipe_id = ${req.params.id};`;
   const query = db.query(sql, (err, response) => {
     if (err) throw err;
-    console.log(response);
     res.render("recipe", { root: VIEWS, response, ingredients });
   });
   console.log("Recipe Page")
 });
 
-// Add Recipe
+// GET Add Recipe
 app.get("/create", function (req, res) {
   res.render("create", { root: VIEWS });
 });
 
+// POST Create new Recipe
 app.post("/create", function (req, res) {
   /// JSON
   // get the highest ID number form the JSON and add 1 to it to get the next ID to be used
@@ -79,7 +82,7 @@ app.post("/create", function (req, res) {
     })) + 1);
   }
 
-  //SQL
+  // SQL Query
   const sql = `INSERT INTO Recipe (title, description, instructions, preptime, cooktime, img_url) VALUES
   ("${req.body.title}", "${req.body.description}", "${req.body.instructions}", ${req.body.preptime}, ${req.body.cooktime}, "${req.body.imgurl}");`;
   const query = db.query(sql, (err, response) => {
@@ -99,7 +102,7 @@ app.post("/create", function (req, res) {
       console.log(newId);
       newId++;
     });
-
+    // JSON
     fs.readFile('./models/ingredients.json', 'utf8', function readFileCallback(err, data) {
       if (err) {
         throw (err);
@@ -113,8 +116,9 @@ app.post("/create", function (req, res) {
   });
 });
 
+// GET Update Recipe
 app.get("/update/:id", function (req, res) {
-  const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
+  const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId == parseInt(req.params.id));
   console.log(currentIngredients);
   const sql = `SELECT * FROM Recipe WHERE id = ${req.params.id};`;
   const query = db.query(sql, (err, response) => {
@@ -124,24 +128,73 @@ app.get("/update/:id", function (req, res) {
   console.log("Update Page")
 });
 
+// POST Update Recipe
 app.post("/update/:id", function (req, res) {
-  const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
-  const newIngredients = req.body.ingredient;
-  // loop through current set of ingredients and change the name and amounts
-  // to the new values from the form
-  currentIngredients.forEach((i, n) => {
-    i.name = newIngredients[n].name;
-    i.amount = newIngredients[n].amount;
-  });
-  // loop through all of the JSON file and change the old values for new values
+  function getNextId(obj) {
+    return (Math.max.apply(Math, obj.map(function (o) {
+      return o.id;
+    })) + 1);
+  }
+
+  console.log("old", ingredientsJson);
+  const id = req.params.id;
+  const newIngredients = [];
   ingredientsJson.forEach((i, n) => {
-    currentIngredients.forEach((j, k) => {
-      if (i.id === j.id) {
-        i.name = j.name;
-        i.amount = j.amount;
-      }
-    });
+    if (i.recipeId != id) {
+      newIngredients.push(i);
+    }
   })
+  let newId = getNextId(newIngredients);
+
+  req.body.ingredient.forEach((i, n) => {
+    newIngredients.push({
+      id: newId,
+      name: i.name,
+      amount: i.amount,
+      recipeId: req.params.id
+    })
+    newId++;
+  });
+  console.log("new stuff here!", newIngredients);
+
+  // function getNextId(obj) {
+  //   return (Math.max.apply(Math, obj.map(function (o) {
+  //     return o.id;
+  //   })) + 1);
+  // }
+  // let newId = getNextId(ingredientsJson);
+  //   const newIngredients = [];
+  //   req.body.ingredient.forEach(i => {
+  //     newIngredients.push({
+  //       "id": newId,
+  //       "name": i.name,
+  //       "amount": i.amount,
+  //       "recipeId": response.insertId
+  //     })
+  //     console.log(newId);
+  //     newId++;
+  //   });
+
+
+  // const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
+  // const newIngredients = req.body.ingredient;
+  // // loop through current set of ingredients and change the name and amounts
+  // // to the new values from the form
+  // currentIngredients.forEach((i, n) => {
+  //   i.name = newIngredients[n].name;
+  //   i.amount = newIngredients[n].amount;
+  // });
+  // // loop through all of the JSON file and change the old values for new values
+  // ingredientsJson.forEach((i, n) => {
+  //   currentIngredients.forEach((j, k) => {
+  //     if (i.id === j.id) {
+  //       i.name = j.name;
+  //       i.amount = j.amount;
+  //     }
+  //   });
+  // })
+
+  // ----------------------------------
 
   const sql = `UPDATE Recipe SET title = "${req.body.title}", 
   description = "${req.body.description}", 
@@ -156,7 +209,7 @@ app.post("/update/:id", function (req, res) {
       if (err) {
         throw (err);
       } else {
-        json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
+        json = JSON.stringify(newIngredients, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
         fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
       }
     });
@@ -164,6 +217,7 @@ app.post("/update/:id", function (req, res) {
   });
 });
 
+// GET Delete Recipe
 app.get("/delete/:id", function (req, res) {
   const sql = `DELETE FROM Recipe WHERE id = ${req.params.id};`
   const query = db.query(sql, (err, response) => {
@@ -172,7 +226,8 @@ app.get("/delete/:id", function (req, res) {
   });
 });
 
-app.get("/delete-ingredient/:id", (req, res) => {
+// GET Delete ingredient
+app.get("/delete-ingredient/:id/:recipe_id", (req, res) => {
   const id = req.params.id;
   ingredientsJson.forEach((i, n) => {
     if (i.id == id) {
@@ -181,9 +236,10 @@ app.get("/delete-ingredient/:id", (req, res) => {
   });
   json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
   fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
-  res.redirect("/update/" + req.params.id);
+  res.redirect("/recipes/" + req.params.recipe_id);
 });
 
+// POST New Comment
 app.post("/newcomment/:id", (req, res) => {
   console.log(req.body);
   const sql = `INSERT INTO Opinion (recipe_id, name, content) VALUES (${req.params.id}, "${req.body.name}", "${req.body.comment}" )`;
@@ -193,6 +249,7 @@ app.post("/newcomment/:id", (req, res) => {
   });
 });
 
+// GET Individual Comment
 app.get("/comment/:id", (req, res) => {
   const sql = `SELECT * FROM Opinion WHERE id = ${req.params.id};`;
   const query = db.query(sql, (err, response) => {
@@ -203,6 +260,7 @@ app.get("/comment/:id", (req, res) => {
   });
 });
 
+// POST Update individual comment
 app.post("/comment/:id/:recipe_id", (req, res) => {
   const sql = `UPDATE Opinion SET name = "${req.body.name}", 
   content = "${req.body.comment}" WHERE Id = ${req.params.id}`;
@@ -213,6 +271,7 @@ app.post("/comment/:id/:recipe_id", (req, res) => {
   });
 });
 
+// GET Delete Comment
 app.get("/delete-comment/:id/:recipe_id", function (req, res) {
   const sql = `DELETE FROM Opinion WHERE id = ${req.params.id};`
   const query = db.query(sql, (err, response) => {
@@ -236,6 +295,7 @@ WHERE id = 2 ;
   res.send("Created table.")
 });
 
+// I used this to try different queries on the DB
 app.get('/querydb', function (req, res) {
   const sql = `select *
   from INFORMATION_SCHEMA.COLUMNS

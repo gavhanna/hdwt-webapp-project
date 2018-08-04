@@ -23,14 +23,14 @@ block content
       fieldset
         input(type="text", name="imgurl", value=recipe.img_url, required)
         label(for="imgurl") Image URL
-      .ingredient-container
+      .ingredient-container(data-total=ingredients.length)
         h2 Ingredients
         each ingredient in ingredients
           fieldset
-            label Ingredient Name + Amount
             .ingredients
               input(type="text", name="ingredient["+ingredient.id+"][name]", value=ingredient.name, required) 
               input(type="number", name="ingredient["+ingredient.id+"][amount]", value=ingredient.amount, required)
-              a.button.deletable(href="/delete-ingredient/" + ingredient.id) Delete
+              a.button.deletable(href="/delete-ingredient/" + ingredient.id + "/" + recipe.id) Delete
+      button(type="button")#addIngredientButton Add Another Ingredient
       fieldset
         button.submit-btn(type="submit") Update
