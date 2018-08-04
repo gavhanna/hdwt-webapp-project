@@ -117,23 +117,51 @@ app.post("/create", function (req, res) {
 });
 
 app.get("/update/:id", function (req, res) {
+  const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
+  console.log(currentIngredients);
   const sql = `SELECT * FROM Recipe WHERE id = ${req.params.id};`;
   const query = db.query(sql, (err, response) => {
     if (err) throw err;
-    res.render("update", { root: VIEWS, recipe: response[0] });
+    res.render("update", { root: VIEWS, recipe: response[0], ingredients: currentIngredients });
   });
   console.log("Update Page")
 });
 
 app.post("/update/:id", function (req, res) {
+  const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
+  const newIngredients = req.body.ingredient;
+  currentIngredients.forEach((i, n) => {
+    i.name = newIngredients[n].name;
+    i.amount = newIngredients[n].amount;
+  });
+
+  ingredientsJson.forEach((i, n) => {
+    currentIngredients.forEach((j, k) => {
+      if (i.id === j.id) {
+        i.name = j.name;
+        i.amount = j.amount;
+      }
+    });
+  })
+
   const sql = `UPDATE Recipe SET title = "${req.body.title}", 
-                                  description = "${req.body.description}", 
-                                  preptime = ${req.body.preptime},
-                                  cooktime = ${req.body.cooktime},
-                                  instructions = "${req.body.instructions}",
-                                  img_url = "${req.body.imgurl}" WHERE Id = ${req.params.id}`;
+  description = "${req.body.description}", 
+  preptime = ${req.body.preptime},
+  cooktime = ${req.body.cooktime},
+  instructions = "${req.body.instructions}",
+  img_url = "${req.body.imgurl}" WHERE Id = ${req.params.id}`;
   const query = db.query(sql, (err, response) => {
     if (err) throw err;
+    // wait for response and then write to the JSON file aswell
+    fs.readFile('./models/ingredients.json', 'utf8', function readFileCallback(err, data) {
+      if (err) {
+        throw (err);
+      } else {
+        //ingredientsJson.push(...newIngredients); // add the information from the above variable
+        json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
+        fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
+      }
+    });
     res.redirect("/recipes/" + req.params.id);
   });
 });

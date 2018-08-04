@@ -2,25 +2,25 @@
     {
         "id": 1,
         "name": "Base",
-        "amount": 1,
+        "amount": "1",
         "recipeId": 19
     },
     {
         "id": 2,
         "name": "Pepperoni",
-        "amount": 10,
+        "amount": "15",
         "recipeId": 19
     },
     {
         "id": 3,
         "name": "Mozzarella",
-        "amount": 2,
+        "amount": "2",
         "recipeId": 19
     },
     {
         "id": 4,
         "name": "Tomato Sauce",
-        "amount": 1,
+        "amount": "1",
         "recipeId": 19
     },
     {
@@ -31,7 +31,7 @@
     },
     {
         "id": 6,
-        "name": "Metal Can ",
+        "name": "Aluminium Can",
         "amount": "1",
         "recipeId": 24
     }

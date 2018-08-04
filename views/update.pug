@@ -23,10 +23,13 @@ block content
       fieldset
         label(for="imgurl") Image URL
         input(type="text", name="imgurl", value=recipe.img_url)
-      //- fieldset
-      //-   label(for="ingredientname1") Ingredient Name 1
-      //-   input(type="text", name="ingredientname1")
-      //-   label(for="ingredientamount1") Ingredient Amount 1
-      //-   input(type="number", name="ingredientamount1")
+      .ingredient-container
+        h2 Ingredients
+        each ingredient in ingredients
+          fieldset
+            label Ingredient Name + Amount
+            .ingredients
+              input(type="text", name="ingredient["+ingredient.id+"][name]", value=ingredient.name) 
+              input(type="number", name="ingredient["+ingredient.id+"][amount]", value=ingredient.amount)
       fieldset
         button.submit-btn(type="submit") Update
