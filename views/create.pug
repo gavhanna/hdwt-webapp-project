@@ -7,29 +7,29 @@ block content
     form(method="post")
       fieldset
         label(for="title") Title
-        input(type="text", name="title")
+        input(type="text", name="title", required)
       fieldset
         label(for="description") Description
-        input(type="text", name="description")
+        input(type="text", name="description", required)
       fieldset
         label(for="preptime") Prep Time (mins)
-        input(type="number", name="preptime")
+        input(type="number", name="preptime", required, min="0")
       fieldset
         label(for="cooktime") Cooking Time (mins)
-        input(type="number", name="cooktime")
+        input(type="number", name="cooktime", required, min="0")
       fieldset
         label(for="instructions") Instructions
-        textarea(type="text", name="instructions")
+        textarea(type="text", name="instructions", required)
       fieldset
         label(for="imgurl") Image URL
-        input(type="text", name="imgurl")
+        input(type="text", name="imgurl", required)
       .ingredient-container(data-total=1)
         h2 Ingredients
         fieldset
           label(for="ingredient[0][name]") Ingredient Name + Amount
           .ingredients
-            input(type="text", name="ingredient[0][name]", placeholder="Ingredient")
-            input(type="number", name="ingredient[0][amount]", placeholder="1")
+            input(type="text", name="ingredient[0][name]", placeholder="Ingredient", required)
+            input(type="number", name="ingredient[0][amount]", placeholder="1", required, min="0")
       button(type="button")#addIngredientButton Add Another Ingredient
       fieldset
         button.submit-btn(type="submit") Submit

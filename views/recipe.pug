@@ -38,6 +38,6 @@ block content
             a(href="/delete-comment/" + comment.id + "/" + comment.recipe_id) Delete
     .add-comment
       form(action="/newcomment/" + response[0][0].id, method="post")
-        input(type="text", name="name", placeholder="Name Goes Here")
-        input(type="text", name="comment", placeholder="What do you think?")
+        input(type="text", name="name", placeholder="Name Goes Here", required)
+        input(type="text", name="comment", placeholder="What do you think?", required)
         button.button Submit

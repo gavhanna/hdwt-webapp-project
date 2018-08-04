@@ -319,3 +319,15 @@ button:hover {
   background: white;
   color: #252525;
 }
+
+/* General Styles */
+
+input:valid,
+textarea:valid {
+  border: 1px solid skyblue;
+}
+
+input:invalid,
+textarea:invalid {
+  border: 1px solid salmon;
+}

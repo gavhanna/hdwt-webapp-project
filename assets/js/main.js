@@ -49,4 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  // Form Validation
+  const inputs = document.querySelectorAll("input");
+
+  if (inputs) {
+    console.log(inputs);
+  }
+
 });
