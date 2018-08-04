@@ -34,8 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
       inputName.name = `ingredient[${total}][name]`;
       inputAmount.name = `ingredient[${total}][amount]`;
 
+      field.classList.add("animate-in");
       deleteThisBtn.classList.add("button");
-      deleteThisBtn.innerText = "Delete";
+      deleteThisBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
       deleteThisBtn.type = "button";
       ingredientsDiv.classList.add("ingredients");
       label.innerText = `Ingredient ${total}`;
@@ -43,9 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
       inputAmount.type = "number";
 
       deleteThisBtn.addEventListener("click", function () {
-        this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
-        total--;
-        ingredientContainer.setAttribute("data-total", total);
+        this.parentNode.parentNode.classList.add("animate-out");
+        setTimeout(() => {
+          this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+          total--;
+          ingredientContainer.setAttribute("data-total", total);
+        }, 500);
       })
 
       ingredientsDiv.appendChild(inputName);

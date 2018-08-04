@@ -14,6 +14,10 @@ a {
   color: #252525;
 }
 
+i {
+  font-family: "Quicksand", sans-serif;
+}
+
 body {
   font-family: "Quicksand", sans-serif;
   color: #333;
@@ -226,14 +230,61 @@ header h1 {
 
 #addIngredientButton {
   margin: 10px auto;
-  background: skyblue;
+  background: rgb(95, 155, 235);
   display: block;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+#addIngredientButton:hover {
+  background: rgb(27, 91, 175);
+  color: white;
 }
 
 .add-recipe-page input,
 .add-recipe-page textarea {
   padding: 10px;
   border: 1px solid #555;
+}
+
+.animate-in {
+  animation-name: animate-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-duration: 500ms;
+  opacity: 0;
+  transform: translateX(-1000px);
+}
+
+.animate-out {
+  animation-name: animate-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-duration: 500ms;
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+@keyframes animate-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-1000px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes animate-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-1000px);
+  }
 }
 
 /* Comments */

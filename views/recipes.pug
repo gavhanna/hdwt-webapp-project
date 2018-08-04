@@ -9,7 +9,8 @@ block content
   .recipes-container
     each recipe in response
         .recipes-card
-          a(href="/delete/" + recipe.id).delete-btn.deletable x
+          a(href="/delete/" + recipe.id).delete-btn.deletable 
+            i.fas.fa-trash-alt
           a(href="/recipes/" + recipe.id)
             .recipes-card-img-container
               img(src=recipe.img_url, alt=recipe.title)
@@ -22,5 +23,6 @@ block content
               p 
                 span Cooking 
                 span #{recipe.cooktime} mins
-          a.button(href="/update/" + recipe.id) Edit
+          a.button(href="/update/" + recipe.id) 
+            i.far.fa-edit  Edit
             

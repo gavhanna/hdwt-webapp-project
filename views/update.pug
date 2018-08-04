@@ -30,7 +30,10 @@ block content
             .ingredients
               input(type="text", name="ingredient["+ingredient.id+"][name]", value=ingredient.name, required) 
               input(type="number", name="ingredient["+ingredient.id+"][amount]", value=ingredient.amount, required)
-              a.button.deletable(href="/delete-ingredient/" + ingredient.id + "/" + recipe.id) Delete
-      button(type="button")#addIngredientButton Add Another Ingredient
+              a.button.deletable(href="/delete-ingredient/" + ingredient.id + "/" + recipe.id) 
+                i.fas.fa-trash-alt
+
+      button(type="button")#addIngredientButton 
+        i.fas.fa-plus
       fieldset
         button.submit-btn(type="submit") Update

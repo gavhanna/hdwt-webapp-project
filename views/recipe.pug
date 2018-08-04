@@ -9,10 +9,14 @@ block content
       .recipe-info-container
         h2 Info
         .recipe-info
-          span Prep Time
+          span 
+            i.far.fa-clock  
+            span  Prep Time
           span #{response[0][0].preptime} minutes
       .recipe-info 
-        span Cooking Time
+        span 
+          i.far.fa-clock  
+          span  Cook Time
         span #{response[0][0].cooktime} minutes
       .ingredients
         h2 Ingredients
@@ -25,8 +29,13 @@ block content
         h2 Instructions
         p #{response[0][0].instructions}
       .recipe-options
-        a.button(href="/delete/" + response[0][0].id, style="margin-right: 10px;") Delete
-        a.button(href="/update/" + response[0][0].id) Edit
+        a.button(href="/update/" + response[0][0].id, style="margin-right: 10px;") 
+          i.far.fa-edit  
+          span  Edit
+
+        a.button(href="/delete/" + response[0][0].id) 
+          i.far.fa-trash-alt  
+          span  Delete
     .right-panel.panel
       .recipe-img
         img(src=response[0][0].img_url, alt=response[0][0].title)
@@ -43,4 +52,5 @@ block content
       form(action="/newcomment/" + response[0][0].id, method="post")
         input(type="text", name="name", placeholder="Name Goes Here", required)
         input(type="text", name="comment", placeholder="What do you think?", required)
-        button.button Submit
+        button.button 
+          i.fas.fa-paper-plane 
