@@ -1,6 +1,6 @@
 .enter-transition {
   animation: animate-in;
-  animation-duration: 300ms;
+  animation-duration: 500ms;
   animation-iteration-count: 1;
   animation-direction: normal;
   animation-timing-function: ease-in-out;
@@ -10,7 +10,7 @@
 
 .exit-transition {
   animation: animate-out;
-  animation-duration: 300ms;
+  animation-duration: 500ms;
   animation-iteration-count: 1;
   animation-direction: normal;
   animation-timing-function: ease-in-out;
