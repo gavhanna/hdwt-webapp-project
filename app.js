@@ -182,7 +182,7 @@ app.get("/delete-ingredient/:id", (req, res) => {
   });
   json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
   fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
-  res.redirect("/recipes/" + req.params.id);
+  res.redirect("/update/" + req.params.id);
 });
 
 // create db table
