@@ -52,6 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 500);
       })
 
+      inputName.required = true;
+      inputAmount.required = true;
       ingredientsDiv.appendChild(inputName);
       ingredientsDiv.appendChild(inputAmount);
       ingredientsDiv.appendChild(deleteThisBtn);
