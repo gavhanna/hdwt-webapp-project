@@ -136,7 +136,6 @@ app.post("/update/:id", function (req, res) {
     })) + 1);
   }
 
-  console.log("old", ingredientsJson);
   const id = req.params.id;
   const newIngredients = [];
   ingredientsJson.forEach((i, n) => {
@@ -144,6 +143,7 @@ app.post("/update/:id", function (req, res) {
       newIngredients.push(i);
     }
   })
+
   let newId = getNextId(newIngredients);
 
   req.body.ingredient.forEach((i, n) => {
@@ -155,46 +155,6 @@ app.post("/update/:id", function (req, res) {
     })
     newId++;
   });
-  console.log("new stuff here!", newIngredients);
-
-  // function getNextId(obj) {
-  //   return (Math.max.apply(Math, obj.map(function (o) {
-  //     return o.id;
-  //   })) + 1);
-  // }
-  // let newId = getNextId(ingredientsJson);
-  //   const newIngredients = [];
-  //   req.body.ingredient.forEach(i => {
-  //     newIngredients.push({
-  //       "id": newId,
-  //       "name": i.name,
-  //       "amount": i.amount,
-  //       "recipeId": response.insertId
-  //     })
-  //     console.log(newId);
-  //     newId++;
-  //   });
-
-
-  // const currentIngredients = ingredientsJson.filter(ingredient => ingredient.recipeId === parseInt(req.params.id));
-  // const newIngredients = req.body.ingredient;
-  // // loop through current set of ingredients and change the name and amounts
-  // // to the new values from the form
-  // currentIngredients.forEach((i, n) => {
-  //   i.name = newIngredients[n].name;
-  //   i.amount = newIngredients[n].amount;
-  // });
-  // // loop through all of the JSON file and change the old values for new values
-  // ingredientsJson.forEach((i, n) => {
-  //   currentIngredients.forEach((j, k) => {
-  //     if (i.id === j.id) {
-  //       i.name = j.name;
-  //       i.amount = j.amount;
-  //     }
-  //   });
-  // })
-
-  // ----------------------------------
 
   const sql = `UPDATE Recipe SET title = "${req.body.title}", 
   description = "${req.body.description}", 
