@@ -506,4 +506,8 @@ textarea:invalid~label::after {
     border: none;
     border-bottom: 1px solid grey;
   }
+  .add-comment form input {
+    width: 95%;
+    margin-top: 10px;
+  }
 }
