@@ -16,6 +16,7 @@ a {
 
 i {
   font-family: "Quicksand", sans-serif;
+  pointer-events: none;
 }
 
 body {
@@ -435,6 +436,7 @@ textarea:invalid~label::after {
 }
 
 .search-results {
+  width: 100%;
   position: absolute;
   display: flex;
   flex-direction: column;

@@ -8,20 +8,23 @@ const path = require("path");
 const VIEWS = path.join(__dirname, "views");
 
 app.set("view engine", "pug");
+// the next line helped to make the POST fetch request from the client!
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("assets"));
 app.use(express.static("images"));
 app.use(express.static("models"));
 
+// grab the ingredients from the json file
 let ingredientsJson = require('./models/ingredients.json');
 
-
+// connect to the DB
 const db = mysql.createConnection({
   host: "den1.mysql5.gear.host",
   user: "recipebook",
   password: "Gz4~?D5lOoF0",
   database: "recipebook",
+  // the next line allows multiple queries at one time
   multipleStatements: true
 });
 
@@ -57,13 +60,15 @@ app.get("/recipes", function (req, res) {
 app.get("/recipes/:id", function (req, res) {
   const ingredients = ingredientsJson.filter(ingredient => ingredient.recipeId == parseInt(req.params.id));
   console.log(ingredients);
+  // thanks to line 28, i can make 2 queries at the same time.
+  // i get the recipe, and the "Opinions" with that recipe_id
   const sql = `SELECT * FROM Recipe WHERE id = ${req.params.id};
               SELECT * FROM Opinion WHERE recipe_id = ${req.params.id};`;
   const query = db.query(sql, (err, response) => {
     if (err) throw err;
     res.render("recipe", { root: VIEWS, response, ingredients });
   });
-  console.log("Recipe Page")
+  console.log(`Recipe page`)
 });
 
 // GET Add Recipe
@@ -137,6 +142,7 @@ app.post("/update/:id", function (req, res) {
     })) + 1);
   }
 
+  // make a new array of objects with all ingredients EXCEPT the ones for this recipe
   const id = req.params.id;
   const newIngredients = [];
   ingredientsJson.forEach((i, n) => {
@@ -144,9 +150,9 @@ app.post("/update/:id", function (req, res) {
       newIngredients.push(i);
     }
   })
-
+  // get next ID to use
   let newId = getNextId(newIngredients);
-
+  // add all the new/updated inredients for this recipe to the new array
   req.body.ingredient.forEach((i, n) => {
     newIngredients.push({
       id: newId,
@@ -170,8 +176,8 @@ app.post("/update/:id", function (req, res) {
       if (err) {
         throw (err);
       } else {
-        json = JSON.stringify(newIngredients, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
-        fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
+        json = JSON.stringify(newIngredients, null, 4);
+        fs.writeFile('./models/ingredients.json', json, 'utf8');
       }
     });
     res.redirect("/recipes/" + req.params.id);
@@ -180,15 +186,35 @@ app.post("/update/:id", function (req, res) {
 
 // GET Delete Recipe
 app.get("/delete/:id", function (req, res) {
+  //make new ingredients array while removing ingredients from current recipe
+  // basically removing the ingredients for the recipe that we are deleting
+  const newIngredients = [];
+  ingredientsJson.forEach((i, n) => {
+    if (i.recipeId != req.params.id) {
+      newIngredients.push(i);
+    }
+  })
+  // create the DELETE SQL query
   const sql = `DELETE FROM Recipe WHERE id = ${req.params.id};`
   const query = db.query(sql, (err, response) => {
     if (err) throw err;
+    fs.readFile('./models/ingredients.json', 'utf8', function readFileCallback(err, data) {
+      if (err) {
+        throw (err);
+      } else {
+        // write the now shorter array back to the json file
+        json = JSON.stringify(newIngredients, null, 4);
+        fs.writeFile('./models/ingredients.json', json, 'utf8');
+      }
+    });
     res.redirect("/recipes");
   });
 });
 
 // GET Delete ingredient
 app.get("/delete-ingredient/:id/:recipe_id", (req, res) => {
+  // get the ingredients id and make a remove
+  // ingredient with that id
   const id = req.params.id;
   ingredientsJson.forEach((i, n) => {
     if (i.id == id) {
@@ -197,6 +223,7 @@ app.get("/delete-ingredient/:id/:recipe_id", (req, res) => {
   });
   json = JSON.stringify(ingredientsJson, null, 4); // converted back to JSON the 4 spaces the json file out so when we look at it it is easily read. So it indents it. 
   fs.writeFile('./models/ingredients.json', json, 'utf8'); // Write the file back
+  // the recipe id was in the params so we can go back to the same recipe page
   res.redirect("/recipes/" + req.params.recipe_id);
 });
 
@@ -257,10 +284,13 @@ WHERE id = 2 ;
 });
 
 app.post("/search.json", (req, res) => {
+  // receives a fetch request from the client side while
+  // the user types in the search box
   const sql = `SELECT * FROM Recipe WHERE title LIKE "%${req.body.query}%";`;
   db.query(sql, (err, response) => {
     if (err) throw err;
     console.log(response);
+    // responds with an array of objects only, for the client to process
     res.send(response)
   });
 })
