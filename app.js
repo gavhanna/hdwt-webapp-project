@@ -8,6 +8,7 @@ const path = require("path");
 const VIEWS = path.join(__dirname, "views");
 
 app.set("view engine", "pug");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("assets"));
 app.use(express.static("images"));
@@ -254,6 +255,15 @@ WHERE id = 2 ;
 
   res.send("Created table.")
 });
+
+app.post("/search.json", (req, res) => {
+  const sql = `SELECT * FROM Recipe WHERE title LIKE "%${req.body.query}%";`;
+  db.query(sql, (err, response) => {
+    if (err) throw err;
+    console.log(response);
+    res.send(response)
+  });
+})
 
 // I used this to try different queries on the DB
 app.get('/querydb', function (req, res) {

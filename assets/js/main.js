@@ -93,4 +93,58 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  // Search box
+
+  // This function was made using information from this stackoverflow thread
+  // https://stackoverflow.com/questions/29775797/fetch-post-json-data
+  // in order to figure out how to send a POST request with fetch.
+  const searchBox = document.querySelector("#search-box");
+  const searchContainer = document.querySelector(".search-container");
+  let searchResults;
+  searchBox.addEventListener("keyup", function () {
+
+    if (searchResults) {
+      let allResults = document.querySelectorAll(".search-results");
+      allResults.forEach(item => {
+        item.remove();
+      })
+    }
+    if (this.value.length > 0) {
+
+      fetch(window.location.origin + "/search.json", {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ query: this.value })
+      }).then(res => res.json())
+        .then(res => {
+          console.log(res);
+          searchResults = document.createElement("ul");
+          searchResults.classList.add("search-results");
+          if (res.length == 0) {
+            console.log("no results");
+            const li = document.createElement("li");
+            li.innerText = "No results";
+            li.classList.add("search-result");
+            searchResults.appendChild(li);
+          } else {
+            console.log("more than one result!");
+            res.forEach(item => {
+              const li = document.createElement("li");
+              const a = document.createElement("a");
+              a.href = window.location.origin + "/recipes/" + item.id;
+              a.innerText = item.title;
+              li.classList.add("search-result");
+              li.appendChild(a);
+              searchResults.appendChild(li);
+            });
+          }
+          searchContainer.appendChild(searchResults);
+        });
+    }
+
+  })
+
 });

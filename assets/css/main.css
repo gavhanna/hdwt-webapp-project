@@ -422,6 +422,26 @@ textarea:invalid~label::after {
   top: 30px;
 }
 
+/* Search Box and Results */
+
+.search-container {
+  position: relative;
+  margin: 10px;
+}
+
+#search-box {
+  border: 1px solid grey;
+  padding: 10px;
+}
+
+.search-results {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 40px;
+  background: white;
+}
+
 /* Media Queries */
 
 @media screen and (max-width: 600px) {
@@ -509,5 +529,8 @@ textarea:invalid~label::after {
   .add-comment form input {
     width: 95%;
     margin-top: 10px;
+  }
+  .search-result:first-child {
+    margin-top: 0px !important;
   }
 }

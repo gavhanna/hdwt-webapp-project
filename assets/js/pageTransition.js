@@ -1,9 +1,9 @@
 
-  let pageBody;
-  let anchors;
+let pageBody;
+let anchors;
 const pageTransition = function () {
- pageBody = document.querySelector("body");
-   anchors = document.querySelectorAll("a");
+  pageBody = document.querySelector("body");
+  anchors = document.querySelectorAll("a");
   pageBody.classList.add("enter-transition");
 
   anchors.forEach(a => {
