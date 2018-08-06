@@ -100,5 +100,17 @@
         "name": "Olive Oil",
         "amount": "1",
         "recipeId": "28"
+    },
+    {
+        "id": 29,
+        "name": "Egg",
+        "amount": "1",
+        "recipeId": 31
+    },
+    {
+        "id": 30,
+        "name": "Boiling water",
+        "amount": "1",
+        "recipeId": 31
     }
 ]
