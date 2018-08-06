@@ -3,6 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteBtns = document.querySelectorAll(".deletable");
   const addIngredientButton = document.querySelector("#addIngredientButton");
   const ingredientContainer = document.querySelector(".ingredient-container");
+  const navButton = document.querySelector(".nav-button");
+  const nav = document.querySelector(".nav-list");
+  const navCloser = document.querySelector("#nav-closer");
+
+  //  Add event listener to each button that have the class .deletable
   deleteBtns.forEach(btn => {
     btn.removeEventListener("click", handleClick);
     btn.addEventListener("click", (e) => {
@@ -17,6 +22,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   })
 
+  // adds a class to a background overlay that when clicked
+  // will close the nav menu
+  navCloser.addEventListener("click", function () {
+    nav.classList.remove("open");
+    navButton.innerHTML = '<i class="fas fa-bars"></i>';
+    navCloser.classList.remove("cover");
+  });
+
+  // Add the .open class to the nav menu on mobile when
+  // the menu button is clicked
+  navButton.addEventListener("click", function () {
+    if (nav.classList.contains("open")) {
+      nav.classList.remove("open");
+      navButton.innerHTML = '<i class="fas fa-bars"></i>';
+      navCloser.classList.remove("cover");
+    } else {
+      nav.classList.add("open");
+      navButton.innerHTML = '<i class="fas fa-times"></i>';
+      navCloser.classList.add("cover");
+    }
+  });
 
   // Check if theres an addIngredient button on the page
   // If there is, make a new ingredient input section appear on the screen
