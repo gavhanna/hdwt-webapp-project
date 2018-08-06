@@ -52,5 +52,53 @@
         "name": "Tomato Sauce",
         "amount": "1",
         "recipeId": "19"
+    },
+    {
+        "id": 21,
+        "name": "Sheet",
+        "amount": "4",
+        "recipeId": 27
+    },
+    {
+        "id": 22,
+        "name": "Sauce",
+        "amount": "1",
+        "recipeId": 27
+    },
+    {
+        "id": 23,
+        "name": "Beef",
+        "amount": "1",
+        "recipeId": 27
+    },
+    {
+        "id": 24,
+        "name": "Lemon",
+        "amount": "1",
+        "recipeId": "28"
+    },
+    {
+        "id": 25,
+        "name": "Lettuce",
+        "amount": "1",
+        "recipeId": "28"
+    },
+    {
+        "id": 26,
+        "name": "Tomato",
+        "amount": "2",
+        "recipeId": "28"
+    },
+    {
+        "id": 27,
+        "name": "Cucumber",
+        "amount": "1",
+        "recipeId": "28"
+    },
+    {
+        "id": 28,
+        "name": "Olive Oil",
+        "amount": "1",
+        "recipeId": "28"
     }
 ]
