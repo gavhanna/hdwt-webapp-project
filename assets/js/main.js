@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // This function was made using information from this stackoverflow thread
   // https://stackoverflow.com/questions/29775797/fetch-post-json-data
-  // in order to figure out how to send a POST request with fetch.
+  // in order to figure out how to send a POST request with fetch API.
   const searchBox = document.querySelector("#search-box");
   const searchContainer = document.querySelector(".search-container");
   let searchResults;
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ query: this.value })
-      }).then(res => res.json())
+      }).then(res => res.json()) // when we recieve the response, call .json() on it and return to the next .then() function.
         .then(res => {
           console.log(res); // logging for testing
           // now that we have results, create a ul to hold the results
