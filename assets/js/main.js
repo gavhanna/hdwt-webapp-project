@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // this calls the pageTransition function from the pageTransition.js file
+  // which is requested before this file in the head
   pageTransition();
   const deleteBtns = document.querySelectorAll(".deletable");
   const addIngredientButton = document.querySelector("#addIngredientButton");
