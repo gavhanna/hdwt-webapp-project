@@ -194,8 +194,10 @@ app.get("/delete/:id", function (req, res) {
       newIngredients.push(i);
     }
   })
+
+  const recipeId = parseInt(req.params.id);
   // create the DELETE SQL query
-  const sql = `DELETE FROM Recipe WHERE id = ${req.params.id};`
+  const sql = `DELETE FROM Recipe WHERE id = ${recipeId};`
   const query = db.query(sql, (err, response) => {
     if (err) throw err;
     fs.readFile('./models/ingredients.json', 'utf8', function readFileCallback(err, data) {

@@ -118,5 +118,23 @@
         "name": "Testing Materials",
         "amount": "5",
         "recipeId": 32
+    },
+    {
+        "id": 32,
+        "name": "Beef",
+        "amount": "4",
+        "recipeId": "34"
+    },
+    {
+        "id": 33,
+        "name": "Second one",
+        "amount": "15",
+        "recipeId": "34"
+    },
+    {
+        "id": 34,
+        "name": "Boiling water",
+        "amount": "100",
+        "recipeId": "34"
     }
 ]

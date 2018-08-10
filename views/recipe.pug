@@ -34,8 +34,8 @@ block content
           span  Edit
 
         a.button.deletable(href="/delete/" + response[0][0].id) 
-          i.far.fa-trash-alt  
-          span  Delete
+          i.far.fa-trash-alt.no-events
+          span.no-events  Delete
     .right-panel.panel
       .recipe-img
         img(src=response[0][0].img_url, alt=response[0][0].title)

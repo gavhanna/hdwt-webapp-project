@@ -19,6 +19,10 @@ i {
   pointer-events: none;
 }
 
+.no-events {
+  pointer-events: none;
+}
+
 body {
   font-family: "Quicksand", sans-serif;
   color: #333;

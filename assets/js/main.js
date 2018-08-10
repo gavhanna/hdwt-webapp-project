@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.removeEventListener("click", handleClick);
     btn.addEventListener("click", (e) => {
       e.preventDefault();
+      console.log(e.target);
+
       const confirmation = confirm("Really delete?");
       if (confirmation) {
         window.location.href = e.target.href;
